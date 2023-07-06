@@ -187,18 +187,271 @@
 // }
 
 
-function App () {
-  return (
-    <div className="App">
-      111
-    </div>
-  )
-}
+// 函数组件的创建和渲染 (1.组件名称必须大写 才会被当作组件 2. 必须有返回值 返回需要展示的结构)
+// 创建Hello组件
+// function Hello () {
+//   return (<div>hello</div>)
+// }
+// // 渲染<div>hello</div>
+
 // function App () {
 //   return (
 //     <div className="App">
-//       111
+//       <Hello />
 //     </div>
 //   )
 // }
+
+
+
+// 类组件的创建和渲染 (1. 组件名大写 2. 继承于React.Component 3. 在render函数中返回结构)
+// 创建
+// import React from 'react'
+// class HelloComponent extends React.Component {
+//   render () {
+//     return <div>this is a class component</div>
+//   }
+// }
+// // 渲染  <div>this is a class component</div>
+// function App () {
+//   return (
+//     <HelloComponent></HelloComponent>
+//   )
+// }
+
+
+
+// 事件绑定--函数组件 
+// onClick={clickHandler}  on + 事件名称 = { 事件处理程序 } 
+
+// import React from 'react'
+
+// // 传递e
+// // function Hello () {
+// //   const clickHandler1 = (e) => {
+// //     console.log('函数组件中的事件被触发了')
+// //     console.log(e)
+// //   }
+// //   return (<div onClick={clickHandler1}>hello</div>)
+// // }
+
+// // 传递自定义参数 箭头函数
+// // function Hello () {
+// //   const clickHandler1 = (msg) => {
+// //     console.log('函数组件中的事件被触发了')
+// //     console.log(msg)
+// //   }
+// //   return (<div onClick={() => clickHandler1('这是一个自定义参数')}>hello</div>)
+// // }
+
+// // 传递e和自定义参数
+// function Hello () {
+//   const clickHandler1 = (e, msg) => {
+//     console.log('函数组件中的事件被触发了')
+//     console.log(e)
+//     console.log(msg)
+//   }
+//   return (<div onClick={(e) => clickHandler1(e, '这是一个自定义参数')}>hello</div>)
+// }
+
+// // // 事件绑定--类组件 
+// // onClick={this.clickHandler}
+// class HelloComponent extends React.Component {
+//   clickHandler2 = () => {
+//     console.log('类组件中的事件被触发了')
+//   }
+//   render () {
+//     return <div onClick={this.clickHandler2}>this is a class component</div>
+//   }
+// }
+
+// function App () {
+//   return (
+//     <div>
+//       <Hello />
+//       <HelloComponent />
+//     </div>
+
+//   )
+// }
+
+// 组件状态(类组件讲解) state  {this.state.name}  this.setState
+// import React from 'react'
+// class TestComponent extends React.Component {
+//   // 1. 定义组件状态
+//   state = {
+//     name: 'i am cxp'
+//   }
+//   // 修改state  箭头函数 不然拿不到this(当前组件的实例)
+//   changeName = () => {
+//     // 错误示范 直接赋值来修改值
+//     // this.state.name = 'i am zxy'
+//     this.setState({
+//       name: 'i am zxy'
+//     })
+//   }
+//   render () {
+//     // 2. 使用组件状态
+//     return <div>this is TestComponent
+//       当前name为:{this.state.name}
+//       <button onClick={this.changeName}>修改name</button>
+//     </div>
+//   }
+// }
+
+// function App () {
+//   return (
+//     <TestComponent />
+//   )
+// }
+
+
+// 写一个counter组件
+// import React from 'react'
+// class CounterComponent extends React.Component {
+//   // 通过state定义组件状态
+//   state = {
+//     count: 0
+//   }
+
+//   changeCounter = () => {
+//     this.setState({
+//       count: this.state.count + 1
+//     })
+//   }
+//   render () {
+//     return <button onClick={this.changeCounter}>{this.state.count}</button>
+//   }
+// }
+// function App () {
+//   return (
+//     <CounterComponent />
+//   )
+// }
+// function App () {
+//   return (
+//     <CounterComponent />
+//   )
+// }
+
+
+// 表单处理 受控组件
+// import React from 'react'
+// class InputComponent extends React.Component {
+//   state = {
+//     msg: 'this is message'
+//   }
+//   changeHandler = (e) => {
+//     this.setState({
+//       msg: e.target.value
+//     })
+//   }
+//   render () {
+//     return <input value={this.state.msg} onChange={this.changeHandler}></input>
+//   }
+// }
+
+// function App () {
+//   return (
+//     <InputComponent />
+//   )
+// }
+
+
+// 组件通信 父子 App父组件 Son子组件
+// import React from 'react'
+
+// // 函数组件的Son
+// // props接收父组件传递的数据
+// function FSon (props) {
+//   return (
+//     <div>我是函数子组件{props.msg}</div>
+//   )
+// }
+
+// // 类组件的Son
+// class CSon extends React.Component {
+//   render () {
+//     // 通过this关键词 去获取这里的props是固定的
+//     return (<div>我是类式子组件,{this.props.msg}
+//       <button onClick={this.props.getMsg}>触发父组件传入的函数</button>
+//     </div>)
+//   }
+// }
+
+// class App extends React.Component {
+//   state = {
+//     msg: "i am a msg"
+//   }
+//   getMsg = () => {
+//     console.log('1111')
+//   }
+//   render () {
+//     return (
+//       <div>
+//         父组件
+//         < CSon msg={this.state.msg} getMsg={this.getMsg} />
+//         <FSon msg={this.state.msg} />
+//       </div >
+
+//     )
+//   }
+// }
+
+
+// 子传父:子组件调用父组件传递过来的函数 并且把想传递的数据当作参数传给父组件
+// import React from 'react'
+// function Son (props) {
+//   const { getSonMsg } = props
+//   return (
+//     <div>this is a son<button onClick={() => getSonMsg('这是来自子组件的数据')}>click</button></div>
+//   )
+// }
+
+// class App extends React.Component {
+
+//   state = {
+//     list: [1, 2, 3]
+//   }
+//   getSonMsg = (sonMsg) => {
+//     console.log(sonMsg)
+//   }
+//   render () {
+//     return <Son getSonMsg={this.getSonMsg}></Son>
+//   }
+// }
+
+// 兄弟组件 父传子 再子传父
+import React from 'react'
+function SonA (props) {
+  const { getSonMsg } = props
+  return (
+    <div>this is a son<button onClick={() => getSonMsg('这是来自子组件的数据')}>click</button></div>
+  )
+}
+function SonB (props) {
+  const { msg } = props
+  return (
+    <div>{msg}</div>
+  )
+}
+
+class App extends React.Component {
+
+  state = {
+    msg: 123
+  }
+  getSonMsg = (sonMsg) => {
+    this.setState({
+      msg: sonMsg
+    })
+  }
+  render () {
+    return <div>
+      <SonA getSonMsg={this.getSonMsg}></SonA>
+      <SonB msg={this.state.msg}></SonB>
+    </div>
+  }
+}
+
 export default App
